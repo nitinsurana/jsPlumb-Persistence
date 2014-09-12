@@ -225,7 +225,7 @@ for(var i=0; i<connection.length;i++){
       pageTargetId: connection[i].targetId,
       anchors: $.map(connection[i].endpoints, function(endpoint) {
         return [[endpoint.anchor.x, 
-        endpoint.anchor.y, 
+        endpoint.anchor.y
               ]];
       })
     });
