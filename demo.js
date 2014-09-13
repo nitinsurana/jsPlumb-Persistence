@@ -1,9 +1,10 @@
 jsPlumb.ready(function() {
 
-    var instance = jsPlumb.getInstance({
-        DragOptions: {cursor: "pointer", zIndex: 2000},
-        HoverClass: "connector-hover"
-    });
+    // var instance = jsPlumb.getInstance({
+    //     DragOptions: {cursor: "pointer", zIndex: 2000},
+    //     HoverClass: "connector-hover"
+    // });
+    var instance=jsPlumb;
     var connectorStrokeColor = "rgba(50, 50, 200, 1)",
             connectorHighlightStrokeColor = "rgba(180, 180, 200, 1)",
             hoverPaintStyle = {strokeStyle: "#7ec3d9"}; // hover paint style is merged on normal style, so you 
@@ -202,131 +203,6 @@ jsPlumb.ready(function() {
     });
     jsPlumb.fire("jsPlumbDemoLoaded", instance);
     localStorage.setItem("instance", instance);
-    var save = function(inst)
-    {
-        var connection;
-        connection = inst.getAllConnections();
-        var blocks = [];
-        $(".window").each(function(idx, elem) {
-            var $elem = $(elem);
-            var id = $elem.attr('id');
-//            alert(id);
-            jsPlumb.selectEndpoints({source: "#"+id}).each(function(endpoint) {
-                console.log(endpoint);
-            });
-
-            blocks.push({
-                id: $elem.attr('id'),
-                left: parseInt($elem.css("left"), 10),
-                top: parseInt($elem.css("top"), 10),
-                width: parseInt($elem.css("width"), 10),
-                heigth: parseInt($elem.css("heigth"), 10),
-                html: $elem.html(),
-                sourceEndpoints: function() {
-                    var temp = [];
-                    inst.selectEndpoints({
-                        source: id
-                    }).each(function(endpoint) {
-                        temp.push({
-                            uuid: endpoint.getUuid(),
-                            x: endpoint.anchor.x,
-                            y: endpoint.anchor.y,
-                            orientation: endpoint.anchor.orientation,
-                            offset: endpoint.anchor.offsets,
-                            parameters: endpoint.getParameters()
-                        });
-                    });
-                    return temp;
-                }()
-            });
-        });
-        for (var i = 0; i < connection.length; i++) {
-            connections.push({
-                connectionId: connection[i].id,
-                pageSourceId: connection[i].sourceId,
-                pageTargetId: connection[i].targetId,
-                sourceEndpointUuid: connection[i].endpoints[0].getUuid(),
-                targetEndpointUuid: connection[i].endpoints[1].getUuid(),
-                labelText: connection[i].getLabel()
-            });
-        }
-        console.log(JSON.stringify(connections));
-        console.log(JSON.stringify(blocks));
-    };
-    $("#link").click(function()
-    {
-        save(instance);
-        alert("Nodes Saved Successfully");
-    });
-    var load = function(jsPlumb)
-    {
-        for (var i = 0; i < connections.length; i++) {
-            var connection1 = jsPlumb.connect({
-                source: connections[i].pageSourceId,
-                target: connections[i].pageTargetId,
-                anchors: connections[i].anchors
-            });
-        }
-    };
-    $("#link1").click(function()
-    {
-        alert("link1 clicked");
-        load(jsPlumb);
-    });
-// var Objs = [];
-//
-//$('.node').each(function () {
-//var id = $(this).attr('id');
-//Objs.push({
-//id: $(this).attr('id'),
-//html: $(this).html(),
-//left: $(this).css('left'),
-//top: $(this).css('top'),
-//width: $(this).css('width'),
-//height: $(this).css('height'),
-//nodetype: $(this).attr('data-nodetype'),
-//nodedata: $(this).attr('data-nodedata') ? $(this).attr('data-nodedata') : '',
-//nodeparent: $(this).attr('data-nodeparent') ? $(this).attr('data-nodeparent') : '',
-//// class: $(this).attr('class')
-//sourceEndpoints: function () {
-//var temp = [];
-//instance.plumbDefaults.instance.selectEndpoints({
-//source: id
-//}).each(function (endpoint) {
-//var tempObj = {
-//uuid: endpoint.getUuid(),
-//x: endpoint.anchor.x,
-//y: endpoint.anchor.y,
-//orientation: endpoint.anchor.orientation,
-//offset: endpoint.anchor.offsets,
-//parameters: endpoint.getParameters()
-//};
-//temp.push(tempObj);
-//});
-//return temp;
-//}(),
-//targetEndpoints: function () {
-//var temp = [];
-//instance.plumbDefaults.instance.selectEndpoints({
-//target: id
-//}).each(function (endpoint) {
-//var tempObj = {
-//uuid: endpoint.getUuid(),
-//x: endpoint.anchor.x,
-//y: endpoint.anchor.y,
-//orientation: endpoint.anchor.orientation,
-//offset: endpoint.anchor.offsets,
-//parameters: endpoint.getParameters()
-//};
-//temp.push(tempObj);
-//});
-//return temp;
-//}()
-//});
-//});
-//
-//var connections = [];
-
 });
 
 
