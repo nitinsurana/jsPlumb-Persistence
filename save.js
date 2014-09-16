@@ -1,10 +1,9 @@
 var load = function(co, jsPlumb)
 {
 //        alert("in load");
- 
 
+    var inst = jsPlumb.getInstance();
     var conn = JSON.parse(co);
-
     var blocks = conn.blocks;
     console.log(blocks.length);
     for (var i = 0; i < blocks.length; i++) {
@@ -35,18 +34,29 @@ var load = function(co, jsPlumb)
                 height: o.height
             });
         }
+//        o.endpoint.forEach(function(endpoint) {
+//            inst.addEndpoint([o.id, endpoint]);
+//        });
+
     }
     var connections = conn.connections;
     for (var i = 0; i < connections.length; i++) {
         var connection1 = jsPlumb.connect({
             source: connections[i].sourceId,
             target: connections[i].targetId,
-            anchors: connections[i].anchors
+            anchors: connections[i].anchors,
+            paintStyle: connections[i].paintStyle,
+            hoverPaintStyle: connections[i].hoverPaintStyle
+
         });
-        console.log(connection1);
+        console.log(JSON.stringify(connections[i].overlays));
         connections[i].overlays.forEach(function(overlay) {
+
             connection1.addOverlay([overlay.type, overlay]);
         });
+//        connections[i].endpoint.forEach(function(endpoint) {
+//            jsPlumb.addEndpoint(endpoint.elementId , endpoint);
+//        });
     }
     jsPlumb.draggable(jsPlumb.getSelector(".window"), {
         drag: function() {
@@ -56,10 +66,12 @@ var load = function(co, jsPlumb)
 };
 var save = function(inst)
 {
+//    console.log(inst);
 
     var connection;
     connection = inst.getAllConnections();
     var blocks = [];
+
     $(".window").each(function(idx, elem) {
         var $elem = $(elem);
         var id = $elem.attr('id');
@@ -71,22 +83,46 @@ var save = function(inst)
             top: parseInt($elem.css("top"), 10),
             width: parseInt($elem.css("width"), 10),
             heigth: parseInt($elem.css("heigth"), 10),
-            html: $elem.html()
-
+            html: $elem.html(),
         });
     });
     var connections = [];
     for (var i = 0; i < connection.length; i++) {
-//        console.log(connection[i].getOverlay());
+        var id = connection[i].sourceId;
+        var endpoints = inst.getEndpoints(connection[i].sourceId);
+//        console.log(endpoints);
+//        console.log(connection[i]);
+//        if (connection[i].endpoints[1].type == 'Image')
+//        {
+//            console.log(connection[i]);
+//        }
+//        console.log(connection[i].getOverlays());
+//        console.log(connection[i].getEndPointStyle());
+//        console.log(connection[i].getPaintStyle());
         connections.push({
             connectionId: connection[i].id,
             sourceId: connection[i].sourceId,
             targetId: connection[i].targetId,
             sourceEndpointUuid: connection[i].endpoints[0].getUuid(),
             targetEndpointUuid: connection[i].endpoints[1].getUuid(),
+            paintStyle: connection[i].getPaintStyle(),
+            hoverPaintStyle: connection[i].getHoverPaintStyle(),
+            endpoint: $.map(endpoints, function(endpoint) {
+                var temp = new Array();
+                var obj = {};
+                for (var key in endpoint) {
+                    if (typeof endpoint[key] !== 'function' && typeof endpoint[key] !== 'object' && typeof endpoint[key] != 'undefined')
+                    {
+                        obj[key] = endpoint[key];
+                    }
+                }
+                temp.push(obj);
+                return temp;
+            }),
             anchors: $.map(connection[i].endpoints, function(endpoint) {
                 return [[endpoint.anchor.x,
-                        endpoint.anchor.y
+                        endpoint.anchor.y,
+                        endpoint.type
                     ]];
             }),
             labelText: connection[i].getLabel(),
@@ -96,7 +132,6 @@ var save = function(inst)
                 for (var key in overlay) {
                     if (typeof overlay[key] !== 'function' && typeof overlay[key] !== 'object' && typeof overlay[key] != 'undefined')
                     {
-//                        console.log("i m in inner " + typeof overlay[key]);
                         if (key == 'loc')
                         {
                             obj["location"] = overlay[key];
@@ -107,7 +142,35 @@ var save = function(inst)
                 }
                 temp.push(obj);
                 return temp;
-            })
+            }),
+//            sourceEndpoints: function() {
+//                var temp = [];
+//                inst.Endpoints(connection[i]).each(function(endpoint) {
+//                    var tempObj = {
+//                        uuid: endpoint.getUuid(),
+//                        x: endpoint.anchor.x,
+//                        y: endpoint.anchor.y,
+//                        orientation: endpoint.anchor.orientation,
+//                        offset: endpoint.anchor.offsets,
+//                        parameters: endpoint.getParameters()
+//                    };
+//                    temp.push(tempObj);
+//                });
+//            }
+//            connector: $.map(connection[i].connector, function(connector) {
+//                var temp = new Array();
+//                var obj = {};
+//                for (var key in connector) {
+////                    console.log(connector[key]);
+//                    if (typeof connector[key] !== 'object' && typeof connector[key] != 'undefined')
+//                    {
+//                        obj[key] = connector[key];
+//                    }
+//                }
+//                temp.push(obj);
+//                return temp;
+//
+//            })
 //            overlays: function() {
 //                var temp = [];
 //                connection[i].getOverlays().forEach(function(overlay) {
@@ -126,7 +189,7 @@ var save = function(inst)
         });
     }
     console.log(JSON.stringify(connections));
-    console.log(JSON.stringify(blocks));
+//    console.log(JSON.stringify(blocks));
 
     var obj = {connections: connections, blocks: blocks};
     $("#textarea").val(JSON.stringify(obj));
