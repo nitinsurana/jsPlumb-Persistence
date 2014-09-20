@@ -5,11 +5,11 @@ var load = function(co, jsPlumb)
     var inst = jsPlumb.getInstance();
     var conn = JSON.parse(co);
     var blocks = conn.blocks;
-    console.log(blocks.length);
+//    console.log(blocks.length);
     for (var i = 0; i < blocks.length; i++) {
 //            alert("in loop");
         var o = blocks[i];
-        console.log(o);
+//        console.log(o);
         if ($("#" + o.id).length == 0) {
 //                alert("in if");
             var elem = $("<div/>");
@@ -41,19 +41,23 @@ var load = function(co, jsPlumb)
     }
     var connections = conn.connections;
     for (var i = 0; i < connections.length; i++) {
-        console.log(connections[i].connectorAttr);
+//        console.log(connections[i].endpointStyle);
         var connection1 = jsPlumb.connect({
             source: connections[i].sourceId,
             target: connections[i].targetId,
             anchors: connections[i].anchors,
             paintStyle: connections[i].paintStyle,
             hoverPaintStyle: connections[i].hoverPaintStyle,
-            endpointStyle: connections[i].endpointStyle,
+            endpointStyles: connections[i].endpointStyle,
             endpoint: [connections[i].endpoint, {url: connections[i].src}],
-            connector: [connections[i].connectorType, connections[i].connectorAttr]
+            connector: [connections[i].connectorType, connections[i].connectorAttr],
+            labelStyle: {
+                cssClass: connections[i].labelClassName
+            }
         });
         console.log(JSON.stringify(connections[i].overlays));
         connections[i].overlays.forEach(function(overlay) {
+
             connection1.addOverlay([overlay.type, overlay]);
         });
 //        connections[i].endpoint.forEach(function(endpoint) {
@@ -127,15 +131,7 @@ var save = function(inst)
                 }
 
         }
-//        console.log(endpoints);
-//        console.log(connection[i]);
-//        if (connection[i].endpoints[1].type == 'Image')
-//        {
-//            console.log(connection[i]);
-//        }
-//        console.log(connection[i].getOverlays());
-//        console.log(connection[i].getEndPointStyle());
-//        console.log(connection[i].getPaintStyle());
+
         connections.push({
             connectorType: type,
             connectorAttr: attrs,
@@ -145,7 +141,14 @@ var save = function(inst)
             sourceEndpointUuid: connection[i].endpoints[0].getUuid(),
             targetEndpointUuid: connection[i].endpoints[1].getUuid(),
             paintStyle: connection[i].getPaintStyle(),
-            endpointStyle: connection[i].endpoints[0].getPaintStyle(),
+            endpointStyle: function()
+            {
+                var temp = [];
+                connection[i].endpoints.forEach(function(endpoint) {
+                    temp.push(endpoint.getPaintStyle());
+                });
+                return temp;
+            }(),
             hoverPaintStyle: connection[i].getHoverPaintStyle(),
             //    endpoint: $.map(endpoints, function(endpoint) {
             //    var temp = new Array();
@@ -181,6 +184,8 @@ var save = function(inst)
                         }
                     }
                 }
+                obj["cssClass"] = overlay.canvas.className;
+                console.log(connection[i].getLabel());
                 temp.push(obj);
                 return temp;
             }),
@@ -229,7 +234,7 @@ var save = function(inst)
 //            }()
         });
     }
-    console.log(JSON.stringify(connections));
+//    console.log(JSON.stringify(connections));
 //    console.log(JSON.stringify(blocks));
 
     var obj = {connections: connections, blocks: blocks};
