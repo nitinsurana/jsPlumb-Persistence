@@ -41,15 +41,16 @@ var load = function(co, jsPlumb)
     }
     var connections = conn.connections;
     for (var i = 0; i < connections.length; i++) {
-console.log( connections[i].src);
+        console.log(connections[i].connectorAttr);
         var connection1 = jsPlumb.connect({
             source: connections[i].sourceId,
             target: connections[i].targetId,
             anchors: connections[i].anchors,
             paintStyle: connections[i].paintStyle,
             hoverPaintStyle: connections[i].hoverPaintStyle,
-endpointStyle:connections[i].endpointStyle,
-endpoint:[connections[i].endpoint,{url: connections[i].src}]
+            endpointStyle: connections[i].endpointStyle,
+            endpoint: [connections[i].endpoint, {url: connections[i].src}],
+            connector: [connections[i].connectorType, connections[i].connectorAttr]
         });
         console.log(JSON.stringify(connections[i].overlays));
         connections[i].overlays.forEach(function(overlay) {
@@ -91,6 +92,41 @@ var save = function(inst)
     for (var i = 0; i < connection.length; i++) {
         var id = connection[i].sourceId;
         var endpoints = inst.getEndpoints(connection[i].sourceId);
+
+        var connector = connection[i].getConnector();
+        var type = connector.type;
+        var attrs = {};
+        switch (type) {
+            case "Bezier":
+                attrs["curviness"] = connector.getCurviness();
+                break;
+
+            case "Straight":
+                {
+                    // attrs["stub"]=connector.getStub();
+                    //attrs["gap"]=connector.getGap();
+                    break;
+                }
+
+            case "Flowchart ":
+                {
+                    // attrs["stub"]=connector.getStub();
+                    // attrs["alwaysRespectStubs "]=connector.getAlwaysRespectStubs ();
+                    // attrs["gap"]=connector.getGap();
+                    //attrs["midpoint"]=connector.getmidPoint();
+                    //attrs["cornerRadius"]=connector.getCornerRadius();
+                    break;
+                }
+
+            case "State Machine":
+                {
+                    //attrs["margin"]=connector.getMargin();
+                    attrs["curviness"] = connector.getCurviness();
+//attrs["proximityLimit"]=connector.getProximityLimit ();
+                    break;
+                }
+
+        }
 //        console.log(endpoints);
 //        console.log(connection[i]);
 //        if (connection[i].endpoints[1].type == 'Image')
@@ -101,33 +137,35 @@ var save = function(inst)
 //        console.log(connection[i].getEndPointStyle());
 //        console.log(connection[i].getPaintStyle());
         connections.push({
+            connectorType: type,
+            connectorAttr: attrs,
             connectionId: connection[i].id,
             sourceId: connection[i].sourceId,
             targetId: connection[i].targetId,
             sourceEndpointUuid: connection[i].endpoints[0].getUuid(),
             targetEndpointUuid: connection[i].endpoints[1].getUuid(),
             paintStyle: connection[i].getPaintStyle(),
-			  endpointStyle: connection[i].endpoints[0].getPaintStyle(),
+            endpointStyle: connection[i].endpoints[0].getPaintStyle(),
             hoverPaintStyle: connection[i].getHoverPaintStyle(),
-        //    endpoint: $.map(endpoints, function(endpoint) {
+            //    endpoint: $.map(endpoints, function(endpoint) {
             //    var temp = new Array();
-             //   var obj = {};
-              //  for (var key in endpoint) {
-              //      if (typeof endpoint[key] !== 'function' && typeof endpoint[key] !== 'object' && typeof endpoint[key] != 'undefined')
-               //     {
-               //         obj[key] = endpoint[key];
-               //     }
-              // }
-             // temp.push(obj);
-              //  return temp;
+            //   var obj = {};
+            //  for (var key in endpoint) {
+            //      if (typeof endpoint[key] !== 'function' && typeof endpoint[key] !== 'object' && typeof endpoint[key] != 'undefined')
+            //     {
+            //         obj[key] = endpoint[key];
+            //     }
+            // }
+            // temp.push(obj);
+            //  return temp;
             //}),
-			endpoint:connection[i].endpoints[0].type,
+            endpoint: connection[i].endpoints[0].type,
             anchors: $.map(connection[i].endpoints, function(endpoint) {
                 return [[endpoint.anchor.x,
                         endpoint.anchor.y,
-                                            ]];
+                    ]];
             }),
-			src: connection[i].endpoints[0].canvas.src,
+            src: connection[i].endpoints[0].canvas.src,
             labelText: connection[i].getLabel(),
             overlays: $.map(connection[i].getOverlays(), function(overlay) {
                 var temp = new Array();
