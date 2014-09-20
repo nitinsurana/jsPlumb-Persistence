@@ -41,17 +41,18 @@ var load = function(co, jsPlumb)
     }
     var connections = conn.connections;
     for (var i = 0; i < connections.length; i++) {
+console.log( connections[i].src);
         var connection1 = jsPlumb.connect({
             source: connections[i].sourceId,
             target: connections[i].targetId,
             anchors: connections[i].anchors,
             paintStyle: connections[i].paintStyle,
-            hoverPaintStyle: connections[i].hoverPaintStyle
-
+            hoverPaintStyle: connections[i].hoverPaintStyle,
+endpointStyle:connections[i].endpointStyle,
+endpoint:[connections[i].endpoint,{url: connections[i].src}]
         });
         console.log(JSON.stringify(connections[i].overlays));
         connections[i].overlays.forEach(function(overlay) {
-
             connection1.addOverlay([overlay.type, overlay]);
         });
 //        connections[i].endpoint.forEach(function(endpoint) {
@@ -106,25 +107,27 @@ var save = function(inst)
             sourceEndpointUuid: connection[i].endpoints[0].getUuid(),
             targetEndpointUuid: connection[i].endpoints[1].getUuid(),
             paintStyle: connection[i].getPaintStyle(),
+			  endpointStyle: connection[i].endpoints[0].getPaintStyle(),
             hoverPaintStyle: connection[i].getHoverPaintStyle(),
-            endpoint: $.map(endpoints, function(endpoint) {
-                var temp = new Array();
-                var obj = {};
-                for (var key in endpoint) {
-                    if (typeof endpoint[key] !== 'function' && typeof endpoint[key] !== 'object' && typeof endpoint[key] != 'undefined')
-                    {
-                        obj[key] = endpoint[key];
-                    }
-                }
-                temp.push(obj);
-                return temp;
-            }),
+        //    endpoint: $.map(endpoints, function(endpoint) {
+            //    var temp = new Array();
+             //   var obj = {};
+              //  for (var key in endpoint) {
+              //      if (typeof endpoint[key] !== 'function' && typeof endpoint[key] !== 'object' && typeof endpoint[key] != 'undefined')
+               //     {
+               //         obj[key] = endpoint[key];
+               //     }
+              // }
+             // temp.push(obj);
+              //  return temp;
+            //}),
+			endpoint:connection[i].endpoints[0].type,
             anchors: $.map(connection[i].endpoints, function(endpoint) {
                 return [[endpoint.anchor.x,
                         endpoint.anchor.y,
-                        endpoint.type
-                    ]];
+                                            ]];
             }),
+			src: connection[i].endpoints[0].canvas.src,
             labelText: connection[i].getLabel(),
             overlays: $.map(connection[i].getOverlays(), function(overlay) {
                 var temp = new Array();
