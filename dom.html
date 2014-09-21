@@ -39,31 +39,23 @@
         <script>
             $("#save").click(function()
             {
-                save(jsPlumb);
-                alert("Nodes Saved Successfully");
+                jsPlumb.save(jsPlumb);
             });
 
 
             $("#load").click(function()
             {
                 var v = $("#textarea").val();
-//                window.location.assign("load.html");
-                $("#main").html("");
+                $("#main").empty();
                 var elem = $("<div/>");
                 elem.attr('id', "kitchensink-demo");
                 $("#main").html(elem);
-//                alert(v);
-                load(v, jsPlumb);
-
+                jsPlumb.load(v, jsPlumb);
             });
-
 
             $("#delete").click(function()
             {
-//                window.location.assign("load.html");
-                $("#main").html("");
-
-
+                $("#main").empty();
             });
         </script>
     </body>
