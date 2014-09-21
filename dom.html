@@ -39,7 +39,8 @@
         <script>
             $("#save").click(function()
             {
-                jsPlumb.save(jsPlumb);
+                var obj=jsPlumb.save(jsPlumb);
+                $("#textarea").val(JSON.stringify(obj));
             });
 
 

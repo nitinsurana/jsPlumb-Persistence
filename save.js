@@ -1,70 +1,5 @@
 (function(jsPlumb) {
-    jsPlumb.load = function(co, jsPlumb) {
-        var inst = jsPlumb.getInstance();
-        var conn = JSON.parse(co);
-        var blocks = conn.blocks;
-        for (var i = 0; i < blocks.length; i++) {
-            var o = blocks[i];
-            if ($("#" + o.id).length == 0) {
-                var elem = $("<div/>");
-                elem.attr('id', o.id);
-                elem.css({
-                    left: o.left,
-                    top: o.top,
-                    width: o.width,
-                    height: o.height,
-                    position: 'absolute'
-                });
-                elem.html(o.html);
-                elem.attr({
-                    'class': 'component window'
-                });
-                $("#kitchensink-demo").append(elem);
-            } else {
-                $("#" + o.id).css({
-                    left: o.left,
-                    top: o.top,
-                    width: o.width,
-                    height: o.height
-                });
-            }
-            //        o.endpoint.forEach(function(endpoint) {
-            //            inst.addEndpoint([o.id, endpoint]);
-            //        });
-        }
-        var connections = conn.connections;
-        for (var i = 0; i < connections.length; i++) {
-            //        console.log(connections[i].endpointStyle);
-            var connection1 = jsPlumb.connect({
-                source: connections[i].sourceId,
-                target: connections[i].targetId,
-                anchors: connections[i].anchors,
-                paintStyle: connections[i].paintStyle,
-                hoverPaintStyle: connections[i].hoverPaintStyle,
-                endpointStyles: connections[i].endpointStyle,
-                endpoint: [connections[i].endpoint, {
-                    url: connections[i].src
-                }],
-                connector: [connections[i].connectorType, connections[i].connectorAttr],
-                labelStyle: {
-                    cssClass: connections[i].labelClassName
-                }
-            });
-            console.log(JSON.stringify(connections[i].overlays));
-            connections[i].overlays.forEach(function(overlay) {
-                connection1.addOverlay([overlay.type, overlay]);
-            });
-            //        connections[i].endpoint.forEach(function(endpoint) {
-            //            jsPlumb.addEndpoint(endpoint.elementId , endpoint);
-            //        });
-        }
-        jsPlumb.draggable(jsPlumb.getSelector(".window"), {
-            drag: function() {
-                //console.log("DRAG")
-            }
-        });
-    };
-    jsPlumb.save = function(inst) {
+     jsPlumb.save = function(inst) {
         //    console.log(inst);
         var connection;
         connection = inst.getAllConnections();
@@ -214,12 +149,77 @@
                 //            }()
             });
         }
-        //    console.log(JSON.stringify(connections));
-        //    console.log(JSON.stringify(blocks));
         var obj = {
             connections: connections,
             blocks: blocks
         };
-        $("#textarea").val(JSON.stringify(obj));
+        return obj;
     };
+
+    jsPlumb.load = function(co, jsPlumb) {
+        var inst = jsPlumb.getInstance();
+        var conn = JSON.parse(co);
+        var blocks = conn.blocks;
+        for (var i = 0; i < blocks.length; i++) {
+            var o = blocks[i];
+            if ($("#" + o.id).length == 0) {
+                var elem = $("<div/>");
+                elem.attr('id', o.id);
+                elem.css({
+                    left: o.left,
+                    top: o.top,
+                    width: o.width,
+                    height: o.height,
+                    position: 'absolute'
+                });
+                elem.html(o.html);
+                elem.attr({
+                    'class': 'component window'
+                });
+                $("#kitchensink-demo").append(elem);
+            } else {
+                $("#" + o.id).css({
+                    left: o.left,
+                    top: o.top,
+                    width: o.width,
+                    height: o.height
+                });
+            }
+            //        o.endpoint.forEach(function(endpoint) {
+            //            inst.addEndpoint([o.id, endpoint]);
+            //        });
+        }
+        var connections = conn.connections;
+        for (var i = 0; i < connections.length; i++) {
+            //        console.log(connections[i].endpointStyle);
+            var connection1 = jsPlumb.connect({
+                source: connections[i].sourceId,
+                target: connections[i].targetId,
+                anchors: connections[i].anchors,
+                paintStyle: connections[i].paintStyle,
+                hoverPaintStyle: connections[i].hoverPaintStyle,
+                endpointStyles: connections[i].endpointStyle,
+                endpoint: [connections[i].endpoint, {
+                    url: connections[i].src
+                }],
+                connector: [connections[i].connectorType, connections[i].connectorAttr],
+                labelStyle: {
+                    cssClass: connections[i].labelClassName
+                }
+            });
+            console.log(JSON.stringify(connections[i].overlays));
+            connections[i].overlays.forEach(function(overlay) {
+                connection1.addOverlay([overlay.type, overlay]);
+            });
+            //        connections[i].endpoint.forEach(function(endpoint) {
+            //            jsPlumb.addEndpoint(endpoint.elementId , endpoint);
+            //        });
+        }
+        jsPlumb.draggable(jsPlumb.getSelector(".window"), {
+            drag: function() {
+                //console.log("DRAG")
+            }
+        });
+    };
+   
 }(jsPlumb));
