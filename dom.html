@@ -39,24 +39,34 @@
         <script>
             $("#save").click(function()
             {
-                var obj=jsPlumb.save(jsPlumb);
-                $("#textarea").val(JSON.stringify(obj));
+                save(jsPlumb);
+                alert("Nodes Saved Successfully");
             });
 
 
             $("#load").click(function()
             {
                 var v = $("#textarea").val();
-                $("#main").empty();
+//                window.location.assign("load.html");
+                console.log(jsPlumb);
+                jsPlumb.reset();
+                $("#main").html("");
                 var elem = $("<div/>");
                 elem.attr('id', "kitchensink-demo");
                 $("#main").html(elem);
-                jsPlumb.load(v, jsPlumb);
+//                alert(v);
+                load(v, jsPlumb);
+
             });
+
 
             $("#delete").click(function()
             {
-                $("#main").empty();
+//                window.location.assign("load.html");
+jsPlumb.reset();
+                $("#main").html("");
+                
+
             });
         </script>
     </body>
