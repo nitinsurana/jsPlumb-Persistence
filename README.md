@@ -4,13 +4,13 @@ jsPlumb-Persistence
 This plugin provides the ability to convert a jsPlumb diagram into a Json &amp; vice-versa.
 Hence, providing the ever missing feature of persistence in jsPlumb.
 
-This plugin adds the following methods, to the jsPlumb global variable :
+```This plugin adds the following methods, to the jsPlumb global variable :
 
-save(plumbInstance)
-load(plumbInstace, connectionsArray, nodesDetailArray)
+**save(plumbInstance)
+load(plumbInstace, connectionsArray, nodesDetailArray)**
 
 Save the graph connection detail(anchors, overlay, style).
-Load the graph
+Load the graph ```
 
 Please make sure you load this plugin, after jsPlumb is loaded.
 
