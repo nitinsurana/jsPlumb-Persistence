@@ -39,7 +39,7 @@
         <script>
             $("#save").click(function()
             {
-                save(jsPlumb);
+                jsPlumb.save();
                 alert("Nodes Saved Successfully");
             });
 
@@ -55,17 +55,16 @@
                 elem.attr('id', "kitchensink-demo");
                 $("#main").html(elem);
 //                alert(v);
-                load(v, jsPlumb);
+                jsPlumb.load(v);
 
             });
 
 
             $("#delete").click(function()
             {
-//                window.location.assign("load.html");
-jsPlumb.reset();
+                jsPlumb.reset();
                 $("#main").html("");
-                
+
 
             });
         </script>
