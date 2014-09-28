@@ -22,8 +22,8 @@ How To Use
 Save the graph connection detail(anchors, overlay, style).
 Load the graph 
 
-Note:Please make sure you load this plugin, after jsPlumb is loaded.
-----
+**Note**:Please make sure you load this plugin, after jsPlumb is loaded.
+
 
 Different modes of saving are supported :
         1. Compact - No look & feel stuff is saved (classes/border/background etc.)
