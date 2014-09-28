@@ -19,7 +19,9 @@ How To Use
 **save(plumbInstance)**
 
 **load(plumbInstace, connectionsArray, nodesDetailArray)**
+
 Save the graph connection detail(anchors, overlay, style).
+
 Load the graph 
 
 **Note**:Please make sure you load this plugin, after jsPlumb is loaded.
