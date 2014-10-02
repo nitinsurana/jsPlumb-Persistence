@@ -30,4 +30,4 @@ How To Use
 
 
 
-**Note**:Please make sure you to this plugin, after jsPlumb is loaded.
+**Note**:Please make sure to load this plugin, after jsPlumb is loaded.
