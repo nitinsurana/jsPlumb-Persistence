@@ -9,7 +9,7 @@ This plugin provides the ability to convert a jsPlumb diagram into a Json &amp; 
 Hence, providing the ever missing feature of persistence in jsPlumb.
 
 
-`This plugin adds the following methods, to the jsPlumb global variable :`
+This plugin adds the following methods, to the jsPlumb global variable :
 
 
 `save(plumbInstance)             //Returns a Javascript Object`
