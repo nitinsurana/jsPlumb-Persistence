@@ -12,7 +12,7 @@ Hence, providing the ever missing feature of persistence in jsPlumb.
 `This plugin adds the following methods, to the jsPlumb global variable :`
 
 
-`save(plumbInstance)`             //Returns a Javascript Object
+`save(plumbInstance)             //Returns a Javascript Object`
 
 `load(plumbInstace, savedObj)`
 
@@ -23,9 +23,9 @@ The plugin saves the graph connection details, anchors, overlays & style.
 How To Use
 -------------
 
-`var savedObj=jsPlumb.save();`
+`var savedObj = jsPlumb.save();    //If no plumbInstance is passwd then global jsPlumb variable is used`
 
-`jsPlumb.load(savedObj);`
+`jsPlumb.load(savedObj);          //If no plumbInstance is passwd then global jsPlumb variable is used`
   
 
 
