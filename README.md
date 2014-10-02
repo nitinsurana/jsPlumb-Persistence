@@ -23,9 +23,9 @@ The plugin saves the graph connection details, anchors, overlays & style.
 How To Use
 -------------
 
-`var savedObj = jsPlumb.save();    //If no plumbInstance is passwd then global jsPlumb variable is used`
+`var savedObj = jsPlumb.save();    //If no plumbInstance is passed then global jsPlumb variable is used`
 
-`jsPlumb.load(savedObj);          //If no plumbInstance is passwd then global jsPlumb variable is used`
+`jsPlumb.load(savedObj);          //If no plumbInstance is passed then global jsPlumb variable is used`
   
 
 
