@@ -16,9 +16,9 @@ Hence, providing the ever missing feature of persistence in jsPlumb.
 How To Use
 -------------
 
-**save(plumbInstance)**
+**`save(plumbInstance)`**
 
-**load(plumbInstace, connectionsArray, nodesDetailArray)**
+**`load(plumbInstace, connectionsArray, nodesDetailArray)`**
 
 Save the graph connection detail(anchors, overlay, style).
 
