@@ -34,38 +34,36 @@
         <!--<script src="load.js"></script>-->
         <!--  demo code -->
         <script src="demo.js"></script>
-        <script src="save.js"></script>
+        <script src="jsplumb-persistence-plugin.js"></script>
 
         <script>
             $("#save").click(function()
             {
-                jsPlumb.save();
-                alert("Nodes Saved Successfully");
+                var obj=jsPlumb.save();
+                $("#textarea").val(JSON.stringify(obj));
             });
-
 
             $("#load").click(function()
             {
-                var v = $("#textarea").val();
-//                window.location.assign("load.html");
-                console.log(jsPlumb);
+                //Clear jsPlumb memory of connections/connectors & endpoints
                 jsPlumb.reset();
-                $("#main").html("");
+
+                //Clear DOM
+                $("#main").empty();
                 var elem = $("<div/>");
                 elem.attr('id', "kitchensink-demo");
-                $("#main").html(elem);
-//                alert(v);
-                jsPlumb.load(v);
+                $("#main").append(elem);
 
+                //Load saved graph 
+                var v = $("#textarea").val();
+                jsPlumb.load(JSON.parse(v));
             });
 
 
             $("#delete").click(function()
             {
                 jsPlumb.reset();
-                $("#main").html("");
-
-
+                $("#main").empty();
             });
         </script>
     </body>

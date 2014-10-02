@@ -1,10 +1,8 @@
 
-(function(plumbInstance) {
-    plumbInstance.load = function(co)
-//    var load = function(co, jsPlumb)
+(function(jsPlumbInstance) {
+    jsPlumbInstance.load = function(conn,plumbInstance)
     {
         plumbInstance = plumbInstance || jsPlumb;
-        var conn = JSON.parse(co);
         var blocks = conn.blocks;
         for (var i = 0; i < blocks.length; i++) {
             var o = blocks[i];
@@ -76,7 +74,7 @@
     };
 
 
-    plumbInstance.save = function()
+    jsPlumbInstance.save = function(plumbInstance)
     {
         plumbInstance = plumbInstance || jsPlumb;
         var connection;
@@ -196,7 +194,7 @@
         }
 
         var obj = {connections: connections, blocks: blocks};
-        $("#textarea").val(JSON.stringify(obj));
+        return obj;
     };
 
 })(jsPlumb);

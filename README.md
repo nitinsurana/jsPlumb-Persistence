@@ -24,10 +24,4 @@ Save the graph connection detail(anchors, overlay, style).
 
 Load the graph 
 
-**Note**:Please make sure you load this plugin, after jsPlumb is loaded.
-
-
-Different modes of saving are supported :
-        1. Compact - No look & feel stuff is saved (classes/border/background etc.)
-        2. Full - All connections with their styling are saved. 
-                NOTE - Nodes styling is not saved, only endpoints/anchors & overlays.
+**Note**:Please make sure you to this plugin, after jsPlumb is loaded.
