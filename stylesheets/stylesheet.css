@@ -105,7 +105,7 @@ header h2 {
   float: left;
 }
 
-#main-content img {
+section img {
   max-width: 100%;
 }
 
@@ -223,35 +223,35 @@ form {
 
 /* GENERAL ELEMENT TYPE STYLES */
 
-#main-content h1 {
+section h1 {
   font-family: 'Architects Daughter', 'Helvetica Neue', Helvetica, Arial, serif;
   font-size: 2.8em;
   letter-spacing: -1px;
   color: #474747;
 }
 
-#main-content h1:before {
+section h1:before {
   content: "/";
   color: #9ddcff;
   padding-right: 0.3em;
   margin-left: -0.9em;
 }
 
-#main-content h2 {
+section h2 {
   font-family: 'Architects Daughter', 'Helvetica Neue', Helvetica, Arial, serif;
   font-size: 22px;
   font-weight: bold;
   margin-bottom: 8px;
   color: #474747;
 }
-#main-content h2:before {
+section h2:before {
   content: "//";
   color: #9ddcff;
   padding-right: 0.3em;
   margin-left: -1.5em;
 }
 
-#main-content h3 {
+section h3 {
   font-family: 'Architects Daughter', 'Helvetica Neue', Helvetica, Arial, serif;
   font-size: 18px;
   font-weight: bold;
@@ -260,14 +260,14 @@ form {
   color: #474747;
 }
 
-#main-content h3:before {
+section h3:before {
   content: "///";
   color: #9ddcff;
   padding-right: 0.3em;
   margin-left: -2em;
 }
 
-#main-content h4 {
+section h4 {
   font-family: 'Architects Daughter', 'Helvetica Neue', Helvetica, Arial, serif;
   font-size: 15px;
   font-weight: bold;
@@ -281,7 +281,7 @@ h4:before {
   margin-left: -2.8em;
 }
 
-#main-content h5 {
+section h5 {
   font-family: 'Architects Daughter', 'Helvetica Neue', Helvetica, Arial, serif;
   font-size: 14px;
   color: #474747;
@@ -293,7 +293,7 @@ h5:before {
   margin-left: -3.2em;
 }
 
-#main-content h6 {
+section h6 {
   font-family: 'Architects Daughter', 'Helvetica Neue', Helvetica, Arial, serif;
   font-size: .8em;
   color: #474747;
@@ -388,15 +388,15 @@ footer a:hover {
   header h2 {
     font-size: 30px;
   }
-  #main-content {
+  section {
     width: 490px;
   }
-  #main-content h1:before,
-  #main-content h2:before,
-  #main-content h3:before,
-  #main-content h4:before,
-  #main-content h5:before,
-  #main-content h6:before {
+  section h1:before,
+  section h2:before,
+  section h3:before,
+  section h4:before,
+  section h5:before,
+  section h6:before {
     content: none;
     padding-right: 0;
     margin-left: 0;
@@ -444,7 +444,7 @@ footer a:hover {
     font-size: 13px;
     display: inline;
   }
-  #main-content,
+  section,
   aside#sidebar {
     float: none;
     width: 100% ! important;
@@ -459,12 +459,12 @@ footer a:hover {
   aside#sidebar a.button {
     display: none;
   }
-  #main-content h1:before,
-  #main-content h2:before,
-  #main-content h3:before,
-  #main-content h4:before,
-  #main-content h5:before,
-  #main-content h6:before {
+  section h1:before,
+  section h2:before,
+  section h3:before,
+  section h4:before,
+  section h5:before,
+  section h6:before {
     content: none;
     padding-right: 0;
     margin-left: 0;

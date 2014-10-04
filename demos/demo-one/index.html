@@ -1,0 +1,121 @@
+<!doctype html>
+<html>
+    <head>
+        <title>jsPlumb Persistence</title>
+        <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+        <link rel="stylesheet" href="../css/jsplumb.css">
+        <link rel="stylesheet" href="demo.css">
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
+    </head>
+    <body data-demo-id="home" data-library="dom">
+        <div class='container'>
+            <div class='ui-layout-east' style='width:70%'>
+                <div id="main" style='width:100%'>
+                    <!-- demo -->
+                    <div class="" id="kitchensink-demo">
+                        <div class="component window" id="window1"><strong>Window 1</strong></div>
+                        <div class="component window" id="window2"><strong>Window 2</strong></div>
+                        <div class="component window" id="window3"><strong>Window 3</strong></div>
+                        <div class="component window" id="window4"><strong>Window 4</strong></div>
+                        <div class="component window" id="window5"><strong>Window 5</strong></div>
+                        <div class="component window" id="window6"><strong>Window 6</strong></div>
+                        <div class="component window" id="window7"><strong>Window 7</strong></div>
+                    </div>
+                    <!-- /demo -->
+                </div>
+            </div>
+            <div class='ui-layout-west' style='width:25%'>
+                <div>
+                    <input type="button" id="save" value="Save"/>
+                    <input type="button" id="load" value="Load"/>
+                    <input type="button" id="delete" value="Delete"/>
+                </div>
+                <div style='height:90%'>
+                    <div id='textarea' style='height:100%'></div>
+                </div>
+            </div>
+        </div>
+        
+        <script src="../jquery-1.9.1.min.js"></script>
+        <script src="../jquery-ui.min.js"></script>
+        <!-- JS -->
+        <script src="../jquery.jsPlumb-1.6.4.js"></script>
+        <!--  demo code -->
+        <script src="demo.js"></script>
+        <script src="https://github.com/coding-idiot/jsPlumb-Persistence/releases/download/v0.1.0/jsplumb-persistence-plugin.js"></script>
+
+        <script>
+            $("#save").click(function()
+            {
+                var obj=jsPlumb.save();
+                editor.setValue(JSON.stringify(obj));
+                formatJson();
+            });
+
+            $("#load").click(function()
+            {
+                //Clear jsPlumb memory of connections/connectors & endpoints
+                jsPlumb.reset();
+
+                //Clear DOM
+                $("#main").empty();
+                var elem = $("<div/>");
+                elem.attr('id', "kitchensink-demo");
+                $("#main").append(elem);
+
+                //Load saved graph 
+                var v = editor.getValue();
+                jsPlumb.load(JSON.parse(v));
+            });
+
+
+            $("#delete").click(function()
+            {
+                jsPlumb.reset();
+                $("#main").empty();
+            });
+        </script>
+        <script src='//cdnjs.cloudflare.com/ajax/libs/ace/1.1.3/ace.js'>
+        </script>
+        <script>
+            var editor = ace.edit("textarea");
+            //editor.setTheme("ace/theme/monokai");
+            editor.getSession().setMode("ace/mode/javascript");
+        </script>
+        <script src="../json2.js"></script>
+        <script src="../jsonlint.js"></script>
+        <script>
+          var formatJson = function () {
+              try {
+                var result = jsonlint.parse(editor.getValue());
+                if (result) {
+                    editor.setValue(JSON.stringify(result, null, "  "));
+                }
+              } catch(e) {
+                console.log(e);     //Invalid JSON error
+              }
+            };
+        </script>
+        <!-- // <script type="text/javascript" src="../jquery.layout.min.js"></script> -->
+        <script>
+            // $(".container").layout({ applyDefaultStyles: true });
+            $( document ).ready( function() {
+                  // var innerDiv1 = $( '.ui-layout-east' );
+                 
+                  // innerDiv1.resizable({
+                  //   handles: 'e',
+                  //   minWidth : 100,
+                  //   maxWidth : 400,
+                  //   resize: function( event, ui ) {
+                  //     var remainingSpace = $(this).parent().width() - $(this).outerWidth(true);
+                  //     var divTwo = $(this).next();
+                  //     var divTwoWidth = remainingSpace - ( divTwo.outerWidth(true) - divTwo.width() );
+                  //     divTwo.css( 'width', divTwoWidth + 'px' );
+                  //   }
+                  // });
+                $("#textarea").resizable()
+            });
+        </script>
+    </body>
+</html>
