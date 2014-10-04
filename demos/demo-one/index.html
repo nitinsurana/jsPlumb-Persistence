@@ -43,12 +43,12 @@
         <script src="../jquery.jsPlumb-1.6.4.js"></script>
         <!--  demo code -->
         <script src="demo.js"></script>
-        <script src="https://github.com/coding-idiot/jsPlumb-Persistence/releases/download/v0.1.0/jsplumb-persistence-plugin.js"></script>
+        <script src="https://github.com/coding-idiot/jsPlumb-Persistence/releases/download/0.1.1/jsplumb-persistence-plugin.js"></script>
 
         <script>
             $("#save").click(function()
             {
-                var obj=jsPlumb.save();
+                var obj=jsPlumb.save({selector:".window"});
                 editor.setValue(JSON.stringify(obj));
                 formatJson();
             });
@@ -66,7 +66,7 @@
 
                 //Load saved graph 
                 var v = editor.getValue();
-                jsPlumb.load(JSON.parse(v));
+                jsPlumb.load({savedObj : JSON.parse(v), containerSelector : "#kitchensink-demo"});
             });
 
 
@@ -97,23 +97,8 @@
               }
             };
         </script>
-        <!-- // <script type="text/javascript" src="../jquery.layout.min.js"></script> -->
         <script>
-            // $(".container").layout({ applyDefaultStyles: true });
             $( document ).ready( function() {
-                  // var innerDiv1 = $( '.ui-layout-east' );
-                 
-                  // innerDiv1.resizable({
-                  //   handles: 'e',
-                  //   minWidth : 100,
-                  //   maxWidth : 400,
-                  //   resize: function( event, ui ) {
-                  //     var remainingSpace = $(this).parent().width() - $(this).outerWidth(true);
-                  //     var divTwo = $(this).next();
-                  //     var divTwoWidth = remainingSpace - ( divTwo.outerWidth(true) - divTwo.width() );
-                  //     divTwo.css( 'width', divTwoWidth + 'px' );
-                  //   }
-                  // });
                 $("#textarea").resizable()
             });
         </script>
