@@ -11,8 +11,8 @@ Hence, providing the ever missing feature of persistence in jsPlumb.
 
 This plugin adds the following methods, to the jsPlumb global variable :
 
-
-```save(options,plumbInstance)             //Returns a Javascript Object
+```
+save(options,plumbInstance)             //Returns a Javascript Object
 
 where options contains the following :
 
@@ -20,8 +20,8 @@ selector (required)           -   a valid jquery selector to select the nodes/bl
 ```
 
 
-
-```load(options, plumbInstance)
+```
+load(options, plumbInstance)
 
 where options contains the following attributes :
 
