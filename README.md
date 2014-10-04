@@ -25,7 +25,7 @@ where options contains the following :
 
 where options contains the following :
 ```
-1.  savedObj (required)           -   the javascript object that was saved
+1.  savedObj (required)           -   the javascript object that is saved
 2.  containerSelector (required)  -   a valid jquery selector pointing to the container in which the diagram is to be loaded
 ```
 
