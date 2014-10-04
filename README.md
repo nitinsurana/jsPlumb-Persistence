@@ -12,9 +12,22 @@ Hence, providing the ever missing feature of persistence in jsPlumb.
 This plugin adds the following methods, to the jsPlumb global variable :
 
 
-`save(plumbInstance)             //Returns a Javascript Object`
+```save(options,plumbInstance)             //Returns a Javascript Object
 
-`load(savedObj, plumbInstance)`
+where options contains the following :
+
+selector (required)           -   a valid jquery selector to select the nodes/blocks associated with the connection
+```
+
+
+
+```load(options, plumbInstance)
+
+where options contains the following attributes :
+
+savedObj (required)           -   the javascript object that was saved
+containerSelector (required)  -   a valid jquery selector pointing to the container in which the diagram is to be loaded
+```
 
 
 The plugin saves the graph connection details, anchors, overlays & style.
@@ -23,9 +36,9 @@ The plugin saves the graph connection details, anchors, overlays & style.
 How To Use
 -------------
 
-`var savedObj = jsPlumb.save();    //If no plumbInstance is passed then global jsPlumb variable is used`
+`var savedObj = jsPlumb.save({selector : ".window" });    //If no plumbInstance is passed then global jsPlumb variable is used`
 
-`jsPlumb.load(savedObj);          //If no plumbInstance is passed then global jsPlumb variable is used`
+`jsPlumb.load({savedObj : savedObj, containerSelector : "#kitchensink-demo"});          //If no plumbInstance is passed then global jsPlumb variable is used`
   
 
 
