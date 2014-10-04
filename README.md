@@ -12,7 +12,7 @@ Hence, providing the ever missing feature of persistence in jsPlumb.
 This plugin adds the following methods, to the jsPlumb global variable :
 
 
-**save(options,plumbInstance)             //Returns a Javascript Object**
+- **save(options,plumbInstance)             //Returns a Javascript Object**
 
 where options contains the following :
 ```
@@ -21,7 +21,7 @@ where options contains the following :
 
 
 
-**load(options, plumbInstance)**
+- **load(options, plumbInstance)**
 
 where options contains the following :
 ```
