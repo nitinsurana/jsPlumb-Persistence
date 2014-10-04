@@ -14,7 +14,7 @@ This plugin adds the following methods, to the jsPlumb global variable :
 
 `save(plumbInstance)             //Returns a Javascript Object`
 
-`load(plumbInstace, savedObj)`
+`load(savedObj, plumbInstance)`
 
 
 The plugin saves the graph connection details, anchors, overlays & style.
