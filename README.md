@@ -47,3 +47,4 @@ How To Use
 
 
 [Demos](http://coding-idiot.github.io/jsPlumb-Persistence/)
+----------------
