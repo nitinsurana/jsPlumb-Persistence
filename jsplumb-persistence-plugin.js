@@ -1,7 +1,11 @@
 
 (function(jsPlumbInstance) {
-    jsPlumbInstance.load = function(conn,plumbInstance)
+    jsPlumbInstance.load = function(options,plumbInstance)
     {
+        if(!options || !options.savedObj || !options.containerSelector){
+            return;
+        }
+        var conn=options.savedObj;
         plumbInstance = plumbInstance || jsPlumb;
         var blocks = conn.blocks;
         for (var i = 0; i < blocks.length; i++) {
@@ -20,7 +24,7 @@
                 elem.attr({
                     'class': 'component window'
                 });
-                $("#kitchensink-demo").append(elem);
+                $(options.containerSelector).append(elem);
             } else {
                 $("#" + o.id).css({
                     left: o.left,
@@ -67,20 +71,23 @@
                 connection1.addOverlay([overlay.type, overlay]);
             });
         }
-        plumbInstance.draggable(plumbInstance.getSelector(".window"), {
+        plumbInstance.draggable(plumbInstance.getSelector(options.savedObj.selector), {
             drag: function() {
             }
         });
     };
 
 
-    jsPlumbInstance.save = function(plumbInstance)
+    jsPlumbInstance.save = function(options,plumbInstance)
     {
+        if(!options || !options.selector){
+            return {};
+        }
         plumbInstance = plumbInstance || jsPlumb;
         var connection;
         connection = plumbInstance.getAllConnections();
         var blocks = [];
-        $(".window").each(function(idx, elem) {
+        $(options.selector).each(function(idx, elem) {
             var $elem = $(elem);
             var id = $elem.attr('id');
             blocks.push({
@@ -193,7 +200,7 @@
             });
         }
 
-        var obj = {connections: connections, blocks: blocks};
+        var obj = {selector:options.selector,connections: connections, blocks: blocks};
         return obj;
     };
 

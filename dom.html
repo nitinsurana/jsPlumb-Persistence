@@ -39,7 +39,7 @@
         <script>
             $("#save").click(function()
             {
-                var obj=jsPlumb.save();
+                var obj=jsPlumb.save({selector:".window"});
                 $("#textarea").val(JSON.stringify(obj));
             });
 
@@ -56,7 +56,7 @@
 
                 //Load saved graph 
                 var v = $("#textarea").val();
-                jsPlumb.load(JSON.parse(v));
+                jsPlumb.load({savedObj:JSON.parse(v),containerSelector:"#kitchensink-demo"});
             });
 
 
