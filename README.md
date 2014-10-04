@@ -11,20 +11,20 @@ Hence, providing the ever missing feature of persistence in jsPlumb.
 
 This plugin adds the following methods, to the jsPlumb global variable :
 
-```
-save(options,plumbInstance)             //Returns a Javascript Object
+
+**save(options,plumbInstance)             //Returns a Javascript Object**
 
 where options contains the following :
-
+```
 1.  selector (required)           -   a valid jquery selector to select the nodes/blocks associated with the connection
 ```
 
 
-```
-load(options, plumbInstance)
+
+**load(options, plumbInstance)**
 
 where options contains the following :
-
+```
 1.  savedObj (required)           -   the javascript object that was saved
 2.  containerSelector (required)  -   a valid jquery selector pointing to the container in which the diagram is to be loaded
 ```
