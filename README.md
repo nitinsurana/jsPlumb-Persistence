@@ -16,17 +16,17 @@ save(options,plumbInstance)             //Returns a Javascript Object
 
 where options contains the following :
 
-selector (required)           -   a valid jquery selector to select the nodes/blocks associated with the connection
+1.  selector (required)           -   a valid jquery selector to select the nodes/blocks associated with the connection
 ```
 
 
 ```
 load(options, plumbInstance)
 
-where options contains the following attributes :
+where options contains the following :
 
-savedObj (required)           -   the javascript object that was saved
-containerSelector (required)  -   a valid jquery selector pointing to the container in which the diagram is to be loaded
+1.  savedObj (required)           -   the javascript object that was saved
+2.  containerSelector (required)  -   a valid jquery selector pointing to the container in which the diagram is to be loaded
 ```
 
 
