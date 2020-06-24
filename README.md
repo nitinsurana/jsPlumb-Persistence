@@ -46,5 +46,5 @@ How To Use
 **Note**:Please make sure to load this plugin, after jsPlumb is loaded.
 
 
-[Demos](http://coding-idiot.github.io/jsPlumb-Persistence/)
+[Demos](http://nitinsurana.github.io/jsPlumb-Persistence/)
 ----------------
