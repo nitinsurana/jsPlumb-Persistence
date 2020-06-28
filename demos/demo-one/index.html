@@ -36,14 +36,14 @@
                 </div>
             </div>
         </div>
-        
+
         <script src="../jquery-1.9.1.min.js"></script>
         <script src="../jquery-ui.min.js"></script>
         <!-- JS -->
         <script src="../jquery.jsPlumb-1.6.4.js"></script>
         <!--  demo code -->
         <script src="demo.js"></script>
-        <script src="https://github.com/coding-idiot/jsPlumb-Persistence/releases/download/0.1.1/jsplumb-persistence-plugin.js"></script>
+        <script src="https://github.com/nitinsurana/jsPlumb-Persistence/releases/download/0.1.1/jsplumb-persistence-plugin.js"></script>
 
         <script>
             $("#save").click(function()
@@ -64,7 +64,7 @@
                 elem.attr('id', "kitchensink-demo");
                 $("#main").append(elem);
 
-                //Load saved graph 
+                //Load saved graph
                 var v = editor.getValue();
                 jsPlumb.load({savedObj : JSON.parse(v), containerSelector : "#kitchensink-demo"});
             });
